@@ -4,6 +4,8 @@ import {AiOutlineMenu} from "react-icons/ai";
 import {IoMdClose} from "react-icons/io";
 import Link from "next/link";
 import {genreList} from "@/services/api.service";
+import {BASE_URL} from "@/utils/Const";
+import axios from "axios";
 
 // Вынести интерфейс в файл со всеми типами ????????
 interface propsType{
@@ -25,24 +27,24 @@ const MobNav = ({input, setInput, handleSubmit}: propsType) => {
     const searchParams = useSearchParams()
     const params = useParams()
 
-    useEffect(() => {
-        genreList()
-            .then((response) => {
-                console.log(response.genres);
-                setGenres(response.genres);
-            })
-            .catch((err) => console.log(err));
-    }, []);
-
-
     // useEffect(() => {
-    //     axios.get(`${BASE_URL}/genre/movie/list?api_key=${process.env.TMDB_API_KEY}&language=ru`, {})
-    //         .then(({data}) => {
-    //             console.log(data.genres)
-    //             setGenres(data.genres)
+    //     genreList()
+    //         .then((response) => {
+    //             console.log(response.genres);
+    //             setGenres(response.genres);
     //         })
-    //         .catch((err) => console.log(err))
-    // }, [])
+    //         .catch((err) => console.log(err));
+    // }, []);
+
+
+    useEffect(() => {
+        axios.get(`${BASE_URL}/genre/movie/list?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=ru`, {})
+            .then(({data}) => {
+                console.log(data.genres)
+                setGenres(data.genres)
+            })
+            .catch((err) => console.log(err))
+    }, [])
 
     useEffect(() => {
         if(searchParams.get('genre')){

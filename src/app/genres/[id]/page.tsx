@@ -4,25 +4,16 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useParams, useRouter, useSearchParams} from "next/navigation";
 import axios from "axios";
 import {BASE_URL} from "@/utils/Const";
-import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
 import Loading from "@/components/Loading";
 import Card from "@/components/Card";
 import Footer from "@/components/Footer";
+import {IMovie} from "@/app/discover/[id]/page";
 
-export interface IMovie{
-    id: string;
-    title: string;
-    poster_path: string;
-    release_date: string;
-}
-
-const Discover = () => {
+const Genres = () => {
     const [title, setTitle] = useState('')
     const [movies, setMovies] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPage, setTotalPage] = useState(1)
-    const [discover, setDiscover] = useState('')
 
     const mainRef = useRef<HTMLDivElement>(null);
 
@@ -37,34 +28,19 @@ const Discover = () => {
             behavior: 'smooth',
         })
         const id = params.id.toString();
+        const genre = searchParams.get('genre');
         const page = searchParams.get('page');
 
-        setDiscover(id)
+        setTitle(`${genre} Movies`)
 
-        switch (id) {
-            case 'now_playing':
-                setTitle('Now Playing movies');
-                break;
-            case 'top_rated':
-                setTitle('Top rated movies');
-                break;
-            case 'popular':
-                setTitle('Popular movies');
-                break;
-            case 'upcoming':
-                setTitle('Upcoming movies');
-                break;
-            default:
-                setTitle('');
-                break
-        }
-        axios.get(`${BASE_URL}/movie/${id}`, {
+        axios.get(`${BASE_URL}/discover/movie`, {
             params: {
                 // В Next.js переменные окружения, которые должны быть доступны на клиенте,
                 // должны начинаться с префикса NEXT_PUBLIC_.
                 // Например, если ваш API ключ должен использоваться на клиенте,
                 // он должен быть назван как NEXT_PUBLIC_TMDB_API_KEY.
                 api_key: process.env.NEXT_PUBLIC_TMDB_API_KEY,
+                with_genres: id,
                 page
             }
         }).then((response) => {
@@ -84,21 +60,23 @@ const Discover = () => {
         }else {
             page = `page=${currentPage + 1}`
         }
-        router.push(`/discover/${discover}?${page}`)
+        router.push(`/genres/${params.id}?genre=${searchParams.get('genre')}&${page}`)
     }
 
     return (
         <main className='bg-secondary max-h-[calc(100vh - 77px)] min-h-[calc(100vh - 77px)] p-8 pb-20 overflow-y-scroll
         overflow-x-hidden scrollbar-thin scrollbar-thumb-[#22222a] scrollbar-track-primary relative' ref={mainRef}>
-            <h2 className='text-[24px] tracking-[2px]'>{title}</h2>
+            <h2 className='text-[24px] tracking-[2px] capitalize'>{title}</h2>
             {movies.length === 0 && <Loading/>}
             <div className='grid gap-8 moviesGrid place-items-center mt-8'>
                 {movies.map((movie: IMovie) => (
-                    <Card key={movie.id}
-                          img={movie.poster_path}
-                          title={movie.title}
-                          id={movie.id}
-                          releasedDate={movie.release_date} />)
+                    <Card
+                        key={movie.id}
+                        img={movie.poster_path}
+                        title={movie.title}
+                        id={movie.id}
+                        releasedDate={movie.release_date}
+                    />)
                 )}
             </div>
             <div className='flex justify-center gap-16 py-6 pt-16'>
@@ -116,10 +94,10 @@ const Discover = () => {
                 </button>
             </div>
             <div className='pb-20'>
-                <Footer />
+                <Footer/>
             </div>
         </main>
     );
 };
 
-export default Discover;
+export default Genres;

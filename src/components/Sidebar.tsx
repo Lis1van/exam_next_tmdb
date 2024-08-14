@@ -4,6 +4,8 @@ import React, {useEffect, useState} from 'react';
 import {useParams, useSearchParams} from "next/navigation";
 import {genreList} from "@/services/api.service";
 import Link from "next/link";
+import axios from "axios";
+import {BASE_URL} from "@/utils/Const";
 
 const Sidebar = () => {
     const [genres, setGenres] = useState([])
@@ -18,10 +20,11 @@ const Sidebar = () => {
     }
 
     useEffect(() => {
-        genreList()
-            .then((response) => {
-                console.log('sidebar:', response.genres);
-                setGenres(response.genres);
+        // genreList()
+        axios.get(`${BASE_URL}/genre/movie/list?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US`)
+            .then(({data}) => {
+                console.log('sidebar:', data.genres);
+                setGenres(data.genres);
             })
             .catch((err) => console.log(err));
     }, []);
@@ -32,7 +35,6 @@ const Sidebar = () => {
             return
         }
         setSelectedGenre(params.id.toString())
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params.id]);
 
     return (
