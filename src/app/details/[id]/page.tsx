@@ -1,16 +1,17 @@
 'use client'
-import React, {useEffect, useRef, useState} from 'react';
-import {useParams, useRouter} from "next/navigation";
+import React, { useEffect, useRef, useState } from 'react';
+import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
-import {BASE_IMG_URL} from "@/utils/Const";
+import { BASE_IMG_URL } from "@/utils/Const";
 import dynamic from "next/dynamic";
 import Loading from "@/components/Loading";
-import {IoMdClose} from "react-icons/io";
-import MovieInfo from "@/components/MovieInfo";
-import {BsPlayFill} from "react-icons/bs";
+import { IoMdClose } from "react-icons/io";
+import { BsPlayFill } from "react-icons/bs";
 import Footer from "@/components/Footer";
+import RatingStars from "@/components/StarsRating";
+import GenreBadges from "@/components/GenreBadge";
 
-const ReactPlayer = dynamic(() => import('react-player/lazy'), {ssr: false})
+const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false });
 
 export interface Root {
     adult: boolean,
@@ -82,37 +83,38 @@ export interface Result {
 }
 
 const MovieDetails = () => {
-    const [movie, setMovie] = useState<Root>()
-    const [showPlayer, setShowPlayer] = useState(false)
-    const [trailer, setTrailer] = useState('')
+    const [movie, setMovie] = useState<Root>();
+    const [showPlayer, setShowPlayer] = useState(false);
+    const [trailer, setTrailer] = useState('');
 
     const router = useRouter();
-    const params = useParams()
+    const params = useParams();
 
     const mainRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         axios.get(`https://api.themoviedb.org/3/movie/${params.id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&append_to_response=videos`)
             .then((res) => {
-                console.log('details:', res.data);
-                setMovie(res.data)
+                setMovie(res.data);
             });
     }, [params.id]);
 
     useEffect(() => {
-        const trailerIndex = movie?.videos?.results?.findIndex((element) => element.type === 'Trailer');
-        const trailerURL = `https://www.youtube.com/watch?v=${movie?.videos?.results[trailerIndex!]?.key}`;
-        setTrailer(trailerURL)
+        if (movie?.videos) {
+            const trailerIndex = movie.videos.results.findIndex((element) => element.type === 'Trailer');
+            const trailerURL = `https://www.youtube.com/watch?v=${movie?.videos.results[trailerIndex]?.key}`;
+            setTrailer(trailerURL);
+        }
     }, [movie]);
 
     const startPlayer = () => {
         mainRef?.current?.scrollTo({
             top: 0,
             left: 0,
-            behavior: 'smooth'
+            behavior: 'smooth',
         });
-        setShowPlayer(true)
-    }
+        setShowPlayer(true);
+    };
 
     return (
         <main className='bg-secondary p-8 relative max-h-[calc(100vh - 77px)] min-h-[calc(100vh - 77px)]
@@ -120,36 +122,29 @@ const MovieDetails = () => {
         >
             {movie === null && <Loading />}
             <div className='text-textColor hover:text-white absolute right-0 top-0 m-2 cursor-pointer'
-                 onClick={router.back}
-            >
+                 onClick={router.back}>
                 <IoMdClose size={28} />
             </div>
             <div className='flex justify-center items-center pt-4 md:pt-0'>
                 <div className='grid md:grid-cols-[300px,1fr] max-w-[1200px] gap-12'>
                     <div>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={`${BASE_IMG_URL}${movie?.poster_path}`} alt={movie?.title} />
                     </div>
                     <div className='space-y-6 md:space-y-3 text-textColor'>
                         <div className='uppercase text-[26px] md:text-[34px] font-medium pr-4 text-white'>
                             {movie?.title}
                         </div>
-                        <div className='flex gap-4 flex-wrap'>
-                            {movie?.genres?.map((genre, index) => (
-                                <MovieInfo
-                                    key={genre.id}
-                                    index={index}
-                                    length={movie.genres.length}
-                                    name={genre.name}
-                                    id={genre.id}
-                                />
-                            ))}
-                        </div>
+                        {/* Интеграция значков жанров */}
+                        <GenreBadges genres={movie?.genres || []} />
                         <div className='flex flex-col md:flex-row gap-2 md:gap-6'>
                             <div>Language: {movie?.original_language?.toUpperCase()}</div>
                             <div>Release: {movie?.release_date}</div>
                             <div>Runtime: {movie?.runtime} min.</div>
-                            {/*звезды*/}
-                            <div>Rating: {movie?.vote_average}</div>
+                            {/* Интеграция звездного рейтинга */}
+                            <div>
+                                Rating: <RatingStars rating={movie?.vote_average || 0} />
+                            </div>
                         </div>
                         <div className='pt-14 space-y-2 pr-4'>
                             <div>OVERVIEW:</div>
@@ -166,8 +161,8 @@ const MovieDetails = () => {
             </div>
             {/*react player*/}
             <div className={`absolute top-3 inset-x-[7%] md:inset-x-[13%] rounded overflow-hidden transition 
-    duration-1000 ${showPlayer ? 'opacity-100 z-50' : 'opacity-0 z-10'}`}
-                 style={{visibility: showPlayer ? 'visible' : 'hidden', pointerEvents: showPlayer ? 'auto' : 'none'}}
+        duration-1000 ${showPlayer ? 'opacity-100 z-50' : 'opacity-0 z-10'}`}
+                 style={{ visibility: showPlayer ? 'visible' : 'hidden', pointerEvents: showPlayer ? 'auto' : 'none' }}
             >
                 <div className='flex items-center justify-between bg-black text-[#f9f9f9] p-3.5'>
                     <span className='font-semibold'>Playing trailer</span>
@@ -182,14 +177,14 @@ const MovieDetails = () => {
                         url={trailer}
                         width='100%'
                         height='100%'
-                        style={{position: 'absolute', top: 0, left: 0}}
+                        style={{ position: 'absolute', top: 0, left: 0 }}
                         controls={true}
                         playing={showPlayer}
                     />
                 </div>
             </div>
             <div className='pb-20'>
-                <Footer/>
+                <Footer />
             </div>
         </main>
     );

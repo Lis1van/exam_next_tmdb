@@ -6,7 +6,6 @@ import Link from "next/link";
 import {BASE_URL} from "@/utils/Const";
 import axios from "axios";
 
-// Вынести интерфейс в файл со всеми типами ????????
 interface propsType{
     input: string,
     setInput: Dispatch<SetStateAction<string>>,
@@ -16,7 +15,6 @@ interface IGenre{
     id: number,
     name: string,
 }
-//------------------------------
 
 const MobNav = ({input, setInput, handleSubmit}: propsType) => {
     const [isOpen, setIsOpen] = useState(false)
