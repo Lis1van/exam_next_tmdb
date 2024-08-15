@@ -3,7 +3,6 @@ import {useParams, useSearchParams} from "next/navigation";
 import {AiOutlineMenu} from "react-icons/ai";
 import {IoMdClose} from "react-icons/io";
 import Link from "next/link";
-import {genreList} from "@/services/api.service";
 import {BASE_URL} from "@/utils/Const";
 import axios from "axios";
 
@@ -27,18 +26,8 @@ const MobNav = ({input, setInput, handleSubmit}: propsType) => {
     const searchParams = useSearchParams()
     const params = useParams()
 
-    // useEffect(() => {
-    //     genreList()
-    //         .then((response) => {
-    //             console.log(response.genres);
-    //             setGenres(response.genres);
-    //         })
-    //         .catch((err) => console.log(err));
-    // }, []);
-
-
     useEffect(() => {
-        axios.get(`${BASE_URL}/genre/movie/list?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=ru`, {})
+        axios.get(`${BASE_URL}/genre/movie/list?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US`, {})
             .then(({data}) => {
                 console.log(data.genres)
                 setGenres(data.genres)
@@ -52,7 +41,6 @@ const MobNav = ({input, setInput, handleSubmit}: propsType) => {
             return
         }
         setSelectedGenre(params.id.toString())
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchParams.get('genre'), params.id]);
 
     return (
@@ -66,9 +54,10 @@ const MobNav = ({input, setInput, handleSubmit}: propsType) => {
                     <input className='bg-secondary px-4 py-2 outline-none placeholder:text-color text-[14px] w-[180px]'
                            type='text' value={input}
                            onChange={(e) => setInput(e.target.value)}
-                           placeholder='Поиск фильмов...'/>
+                           placeholder='Search movie...'/>
                 </div>
-                <button className='bg-secondary text-textColor py-2 px-4 hover:bg-textColor hover:text-white text-[14px]'>Поиск
+                <button className='bg-secondary text-textColor py-2 px-4 hover:bg-textColor hover:text-white text-[14px]'>
+                    Search
                 </button>
             </form>
 
@@ -78,7 +67,7 @@ const MobNav = ({input, setInput, handleSubmit}: propsType) => {
                 <div className='sticky top-0 bg-primary py-4 w-[100%]'>
                     <IoMdClose className='absolute top-0 right-0 m-2 mt-7'
                                onClick={() => setIsOpen(false)} size={28} />
-                <Link className='w-fit' href='/discover/now_playing' onClick={() => setIsOpen(false)}>
+                <Link className='w-fit' href={'/discover/now_playing'} onClick={() => setIsOpen(false)}>
                     <div className='sidebarTitle text-[28px] text-center'>
                         Movie TMDB
                     </div>
@@ -87,22 +76,22 @@ const MobNav = ({input, setInput, handleSubmit}: propsType) => {
                 <div className='px-4 pb-16'>
                     <div className="flex flex-col gap-4 pt-4">
                         <p className='sidebarTitle'>Discover</p>
-                        <Link className='w-fit' href='/discover/now_playing' onClick={() => setIsOpen(false)}>
+                        <Link className='w-fit' href={'/discover/now_playing'} onClick={() => setIsOpen(false)}>
                             <p className={`sidebarLink ${selectedGenre === 'now_playing' ? 'sidebarActive' : ''}`}>
                                 Now playing
                             </p>
                         </Link>
-                        <Link className='w-fit' href='/discover/top_rated' onClick={() => setIsOpen(false)}>
+                        <Link className='w-fit' href={'/discover/top_rated'} onClick={() => setIsOpen(false)}>
                             <p className={`sidebarLink ${selectedGenre === 'top_rated' ? 'sidebarActive' : ''}`}>
                                 Top rated
                             </p>
                         </Link>
-                        <Link className='w-fit' href='/discover/popular' onClick={() => setIsOpen(false)}>
+                        <Link className='w-fit' href={'/discover/popular'} onClick={() => setIsOpen(false)}>
                             <p className={`sidebarLink ${selectedGenre === 'popular' ? 'sidebarActive' : ''}`}>
                                 Popular
                             </p>
                         </Link>
-                        <Link className='w-fit' href='/discover/upcoming' onClick={() => setIsOpen(false)}>
+                        <Link className='w-fit' href={'/discover/upcoming'} onClick={() => setIsOpen(false)}>
                             <p className={`sidebarLink ${selectedGenre === 'upcoming' ? 'sidebarActive' : ''}`}>
                                 Upcoming
                             </p>

@@ -54,7 +54,7 @@ const Genres = () => {
     }, [params.id, searchParams.get('page')]);
 
     const handlePageChange = (button: string) => {
-        let page = ''
+        let page;
         if (button === 'prev'){
             page = `page=${currentPage - 1}`
         }else {

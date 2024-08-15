@@ -2,11 +2,10 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useParams, useRouter} from "next/navigation";
 import axios from "axios";
-import {BASE_IMG_URL, BASE_URL} from "@/utils/Const";
+import {BASE_IMG_URL} from "@/utils/Const";
 import dynamic from "next/dynamic";
 import Loading from "@/components/Loading";
 import {IoMdClose} from "react-icons/io";
-import Genres from "@/app/genres/[id]/page";
 import MovieInfo from "@/components/MovieInfo";
 import {BsPlayFill} from "react-icons/bs";
 import Footer from "@/components/Footer";
@@ -140,7 +139,8 @@ const MovieDetails = () => {
                                     key={genre.id}
                                     index={index}
                                     length={movie.genres.length}
-                                    name={genre.name} id={genre.id}
+                                    name={genre.name}
+                                    id={genre.id}
                                 />
                             ))}
                         </div>
@@ -166,7 +166,9 @@ const MovieDetails = () => {
             </div>
             {/*react player*/}
             <div className={`absolute top-3 inset-x-[7%] md:inset-x-[13%] rounded overflow-hidden transition 
-            duration-1000 ${showPlayer ? 'opacity-100 z-50' : 'opacity-0 z-10'}`}>
+    duration-1000 ${showPlayer ? 'opacity-100 z-50' : 'opacity-0 z-10'}`}
+                 style={{visibility: showPlayer ? 'visible' : 'hidden', pointerEvents: showPlayer ? 'auto' : 'none'}}
+            >
                 <div className='flex items-center justify-between bg-black text-[#f9f9f9] p-3.5'>
                     <span className='font-semibold'>Playing trailer</span>
                     <div className='cursor-pointer w-8 h-8 flex justify-center items-center rounded-lg opacity-50
@@ -187,7 +189,7 @@ const MovieDetails = () => {
                 </div>
             </div>
             <div className='pb-20'>
-                <Footer />
+                <Footer/>
             </div>
         </main>
     );

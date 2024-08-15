@@ -1,14 +1,14 @@
 import React from 'react';
 import Link from "next/link";
 
-interface IGenre {
+interface IGenres {
     index: number,
     name: string,
     length: number,
     id: number,
 }
 
-const MovieInfo = ({index, name, length, id}: IGenre) => {
+const MovieInfo = ({index, name, length, id}: IGenres) => {
     return (
         <Link href={`/genres/${id}?genre=${name.toLowerCase()}`}>
             <div className='flex gap-4 text-textColor hover:text-white'>

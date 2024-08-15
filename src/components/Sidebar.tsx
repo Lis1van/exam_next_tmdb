@@ -2,7 +2,6 @@
 
 import React, {useEffect, useState} from 'react';
 import {useParams, useSearchParams} from "next/navigation";
-import {genreList} from "@/services/api.service";
 import Link from "next/link";
 import axios from "axios";
 import {BASE_URL} from "@/utils/Const";
@@ -45,22 +44,22 @@ const Sidebar = () => {
                         scrollbar-thumb-[#22222a] scrollbar-track-primary hidden sm:block'>
             <div className="flex flex-col gap-4 pt-4">
                 <p className='sidebarTitle'>Discover</p>
-                <Link href='/discover/now_playing'>
+                <Link href={'/discover/now_playing'}>
                     <p className={`sidebarLink ${selectedGenre === 'now_playing' ? 'sidebarActive' : ''}`}>
                         Now playing
                     </p>
                 </Link>
-                <Link href='/discover/top_rated'>
+                <Link href={'/discover/top_rated'}>
                     <p className={`sidebarLink ${selectedGenre === 'top_rated' ? 'sidebarActive' : ''}`}>
                         Top rated
                     </p>
                 </Link>
-                <Link href='/discover/popular'>
+                <Link href={'/discover/popular'}>
                     <p className={`sidebarLink ${selectedGenre === 'popular' ? 'sidebarActive' : ''}`}>
                         Popular
                     </p>
                 </Link>
-                <Link href='/discover/upcoming'>
+                <Link href={'/discover/upcoming'}>
                     <p className={`sidebarLink ${selectedGenre === 'upcoming' ? 'sidebarActive' : ''}`}>
                         Upcoming
                     </p>
