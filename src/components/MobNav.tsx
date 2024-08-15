@@ -1,76 +1,91 @@
-import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
-import {useParams, useSearchParams} from "next/navigation";
-import {AiOutlineMenu} from "react-icons/ai";
-import {IoMdClose} from "react-icons/io";
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useParams, useSearchParams } from "next/navigation";
+import { AiOutlineMenu } from "react-icons/ai";
+import { IoMdClose } from "react-icons/io";
+import { FaSun, FaMoon, FaUser } from 'react-icons/fa';
 import Link from "next/link";
-import {BASE_URL} from "@/utils/Const";
+import { BASE_URL } from "@/utils/Const";
 import axios from "axios";
+import { useTheme } from 'next-themes';
 
-interface propsType{
+interface propsType {
     input: string,
     setInput: Dispatch<SetStateAction<string>>,
     handleSubmit: (event: React.FormEvent) => void,
 }
-interface IGenre{
+
+interface IGenre {
     id: number,
     name: string,
 }
 
-const MobNav = ({input, setInput, handleSubmit}: propsType) => {
-    const [isOpen, setIsOpen] = useState(false)
-    const [genres, setGenres] = useState([])
-    const [selectedGenre, setSelectedGenre] = useState('')
+const MobNav = ({ input, setInput, handleSubmit }: propsType) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [genres, setGenres] = useState<IGenre[]>([]);
+    const [selectedGenre, setSelectedGenre] = useState('');
 
-    const searchParams = useSearchParams()
-    const params = useParams()
+    const searchParams = useSearchParams();
+    const params = useParams();
+    const { theme, setTheme } = useTheme();
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/genre/movie/list?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US`, {})
-            .then(({data}) => {
-                console.log(data.genres)
-                setGenres(data.genres)
+        axios.get(`${BASE_URL}/genre/movie/list?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US`)
+            .then(({ data }) => {
+                console.log(data.genres);
+                setGenres(data.genres);
             })
-            .catch((err) => console.log(err))
-    }, [])
+            .catch((err) => console.log(err));
+    }, []);
 
     useEffect(() => {
-        if(searchParams.get('genre')){
-            setSelectedGenre(searchParams.get('genre')!)
-            return
+        if (searchParams.get('genre')) {
+            setSelectedGenre(searchParams.get('genre')!);
+            return;
         }
-        setSelectedGenre(params.id.toString())
+        setSelectedGenre(params.id.toString());
     }, [searchParams.get('genre'), params.id]);
 
     return (
         <>
             <form className='md:hidden flex justify-between w-[100%]' onSubmit={handleSubmit}>
                 <div onClick={() => setIsOpen(true)}>
-                    {/*react-icon иконка меню в мобильной версии*/}
-                    <AiOutlineMenu size={30}/>
+                    <AiOutlineMenu size={30} />
                 </div>
                 <div className='space-x-4'>
-                    <input className='bg-secondary px-4 py-2 outline-none placeholder:text-color text-[14px] w-[180px]'
-                           type='text' value={input}
-                           onChange={(e) => setInput(e.target.value)}
-                           placeholder='Search movie...'/>
+                    <input
+                        className='bg-secondary px-4 py-2 outline-none placeholder:text-color text-[14px] w-[180px]'
+                        type='text' value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        placeholder='Search movie...'
+                    />
                 </div>
                 <button className='bg-secondary text-textColor py-2 px-4 hover:bg-textColor hover:text-white text-[14px]'>
                     Search
                 </button>
             </form>
 
-            {/*Full screen Nav*/}
-            <div className={`min-h-[100vh] max-h-[100vh] w-[100%] bg-primary fixed left-0 top-0 z-10
-            overflow-scroll ${isOpen ? 'block' : 'hidden'}`}>
+            {/* Full screen navigation menu */}
+            <div className={`min-h-[100vh] max-h-[100vh] w-[100%] bg-primary fixed left-0 top-0 z-10 overflow-scroll ${isOpen ? 'block' : 'hidden'}`}>
                 <div className='sticky top-0 bg-primary py-4 w-[100%]'>
-                    <IoMdClose className='absolute top-0 right-0 m-2 mt-7'
-                               onClick={() => setIsOpen(false)} size={28} />
-                <Link className='w-fit' href={'/discover/now_playing'} onClick={() => setIsOpen(false)}>
-                    <div className='sidebarTitle text-[28px] text-center'>
-                        Movie TMDB
+                    <IoMdClose className='absolute top-0 right-0 m-2 mt-7' onClick={() => setIsOpen(false)} size={28} />
+                    <div className='flex justify-between items-center px-4'>
+                        <Link className='w-fit' href={'/discover/now_playing'} onClick={() => setIsOpen(false)}>
+                            <div className='sidebarTitle text-[28px] text-center'>
+                                Movie TMDB
+                            </div>
+                        </Link>
+                        <button
+                            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                            className="text-xl focus:outline-none"
+                            aria-label="Toggle Theme"
+                            type="button"
+                        >
+                            {theme === 'dark' ? <FaSun className="text-yellow-400" /> : <FaMoon />}
+                        </button>
+                        <FaUser className="text-xl cursor-pointer" />
                     </div>
-                </Link>
                 </div>
+
                 <div className='px-4 pb-16'>
                     <div className="flex flex-col gap-4 pt-4">
                         <p className='sidebarTitle'>Discover</p>
@@ -97,13 +112,13 @@ const MobNav = ({input, setInput, handleSubmit}: propsType) => {
                     </div>
                     <div className="flex flex-col gap-4 pt-4">
                         <p className='sidebarTitle'>Genre</p>
-                        {genres.map((genre: IGenre) => <Link key={genre.id} href={`/genres/${genre.id}?genre=${genre.name.
-                        toLocaleLowerCase()}`} className='w-fit' onClick={() => setIsOpen(false)}>
-                            <p className={`sidebarLink ${genre.name.
-                            toLowerCase() === selectedGenre ? 'sidebarActive' : ''}`}>
-                                {genre.name}
-                            </p>
-                        </Link>)}
+                        {genres.map((genre: IGenre) => (
+                            <Link key={genre.id} href={`/genres/${genre.id}?genre=${genre.name.toLowerCase()}`} className='w-fit' onClick={() => setIsOpen(false)}>
+                                <p className={`sidebarLink ${genre.name.toLowerCase() === selectedGenre ? 'sidebarActive' : ''}`}>
+                                    {genre.name}
+                                </p>
+                            </Link>
+                        ))}
                     </div>
                 </div>
             </div>

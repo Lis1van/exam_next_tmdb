@@ -12,7 +12,7 @@ const GenreBadges: React.FC<GenreBadgesProps> = ({ genres }) => {
                 <Badge
                     key={genre.id}
                     color="primary"
-                    className="mr-2"
+                    className="mr-2 px-4 py-1 bg-white hover:bg-[#b4b4b4] text-black"
                     style={{ cursor: 'pointer' }}
                     onClick={() => {
                         window.location.href = `/genres/${genre.id}?genre=${genre.name.toLowerCase()}`;
