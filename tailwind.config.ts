@@ -13,8 +13,6 @@ const config: Config = {
         primary: '#090b0e',
         secondary: '#1b1c21',
         textColor: '#646464',
-        lightBackground: '#ffffff',  // Цвет для светлой темы
-        darkBackground: '#1a202c',   // Цвет для темной темы
       },
     },
   },

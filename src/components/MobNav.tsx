@@ -1,23 +1,26 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+'use client'
+
+import React, { useEffect, useState } from 'react';
 import { useParams, useSearchParams } from "next/navigation";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
-import { FaSun, FaMoon, FaUser } from 'react-icons/fa';
+import { FaUser } from 'react-icons/fa';
 import Link from "next/link";
 import { BASE_URL } from "@/utils/Const";
 import axios from "axios";
-import { useTheme } from 'next-themes';
+import DarkModeSwitch from "@/components/DarkModeSwitch";
+import {IGenre, propsType} from "@/types";
 
-interface propsType {
-    input: string,
-    setInput: Dispatch<SetStateAction<string>>,
-    handleSubmit: (event: React.FormEvent) => void,
-}
-
-interface IGenre {
-    id: number,
-    name: string,
-}
+// interface propsType {
+//     input: string,
+//     setInput: Dispatch<SetStateAction<string>>,
+//     handleSubmit: (event: React.FormEvent) => void,
+// }
+//
+// interface IGenre {
+//     id: number,
+//     name: string,
+// }
 
 const MobNav = ({ input, setInput, handleSubmit }: propsType) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -26,12 +29,10 @@ const MobNav = ({ input, setInput, handleSubmit }: propsType) => {
 
     const searchParams = useSearchParams();
     const params = useParams();
-    const { theme, setTheme } = useTheme();
 
     useEffect(() => {
         axios.get(`${BASE_URL}/genre/movie/list?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US`)
             .then(({ data }) => {
-                console.log(data.genres);
                 setGenres(data.genres);
             })
             .catch((err) => console.log(err));
@@ -74,14 +75,7 @@ const MobNav = ({ input, setInput, handleSubmit }: propsType) => {
                                 Movie TMDB
                             </div>
                         </Link>
-                        <button
-                            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                            className="text-xl focus:outline-none"
-                            aria-label="Toggle Theme"
-                            type="button"
-                        >
-                            {theme === 'dark' ? <FaSun className="text-yellow-400" /> : <FaMoon />}
-                        </button>
+                        <DarkModeSwitch />
                         <FaUser className="text-xl cursor-pointer" />
                     </div>
                 </div>
@@ -110,11 +104,12 @@ const MobNav = ({ input, setInput, handleSubmit }: propsType) => {
                             </p>
                         </Link>
                     </div>
-                    <div className="flex flex-col gap-4 pt-4">
-                        <p className='sidebarTitle'>Genre</p>
+
+                    <div className='flex flex-col gap-4 pt-4'>
+                        <p className='sidebarTitle'>Genres</p>
                         {genres.map((genre: IGenre) => (
-                            <Link key={genre.id} href={`/genres/${genre.id}?genre=${genre.name.toLowerCase()}`} className='w-fit' onClick={() => setIsOpen(false)}>
-                                <p className={`sidebarLink ${genre.name.toLowerCase() === selectedGenre ? 'sidebarActive' : ''}`}>
+                            <Link className='w-fit' href={`/genre/${genre.id}`} key={genre.id} onClick={() => setIsOpen(false)}>
+                                <p className={`sidebarLink ${Number(selectedGenre) === genre.id ? 'sidebarActive' : ''}`}>
                                     {genre.name}
                                 </p>
                             </Link>
@@ -124,6 +119,6 @@ const MobNav = ({ input, setInput, handleSubmit }: propsType) => {
             </div>
         </>
     );
-};
+}
 
 export default MobNav;

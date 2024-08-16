@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
+import type {Metadata} from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
-import { ThemeProvider } from "next-themes";
+import {ThemeProvider} from "next-themes";
 import React from "react";
 
 export const metadata: Metadata = {
@@ -12,16 +12,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
                                        children,
-                                   }: Readonly<{
+                                   }: {
     children: React.ReactNode;
-}>) {
+}) {
     return (
         <html lang="en">
         <body className="h-screen overflow-hidden">
-        <ThemeProvider attribute="class">
-            <Navbar />
+        <ThemeProvider defaultTheme='system' attribute='class'>
+            <Navbar/>
             <div className="grid grid-cols-1 sm:grid-cols-[250px,1fr] h-full">
-                <Sidebar />
+                <Sidebar/>
                 {children}
             </div>
         </ThemeProvider>
@@ -29,4 +29,3 @@ export default function RootLayout({
         </html>
     );
 }
-

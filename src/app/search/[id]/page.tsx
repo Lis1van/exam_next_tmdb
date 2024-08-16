@@ -6,7 +6,7 @@ import {BASE_URL} from "@/utils/Const";
 import Loading from "@/components/Loading";
 import Card from "@/components/Card";
 import Footer from "@/components/Footer";
-import {IMovie} from "@/app/discover/[id]/page";
+import {IMovie} from "@/types";
 
 const Search = () => {
     const [title, setTitle] = useState('')
@@ -35,10 +35,6 @@ const Search = () => {
 
         axios.get(`${BASE_URL}/search/movie`, {
             params: {
-                // В Next.js переменные окружения, которые должны быть доступны на клиенте,
-                // должны начинаться с префикса NEXT_PUBLIC_.
-                // Например, если ваш API ключ должен использоваться на клиенте,
-                // он должен быть назван как NEXT_PUBLIC_TMDB_API_KEY.
                 api_key: process.env.NEXT_PUBLIC_TMDB_API_KEY,
                 query: id,
                 page
@@ -50,7 +46,6 @@ const Search = () => {
             setTotalPage(response.data.total_pages)
         }).catch(error => console.log(error))
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params.id, searchParams.get('page')]);
 
     const handlePageChange = (button: string) => {

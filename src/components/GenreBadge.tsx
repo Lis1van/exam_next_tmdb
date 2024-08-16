@@ -1,9 +1,6 @@
 import React from 'react';
 import { Badge } from 'reactstrap';
-
-interface GenreBadgesProps {
-    genres: { id: number; name: string }[];
-}
+import {GenreBadgesProps} from "@/types";
 
 const GenreBadges: React.FC<GenreBadgesProps> = ({ genres }) => {
     return (

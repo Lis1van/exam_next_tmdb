@@ -1,11 +1,6 @@
 import React from 'react';
 import StarRatings from 'react-star-ratings';
-
-interface RatingStarsProps {
-    rating: number;
-    starDimension?: string;
-    starSpacing?: string;
-}
+import {RatingStarsProps} from "@/types";
 
 const StarsRating: React.FC<RatingStarsProps> = ({
                                                      rating,

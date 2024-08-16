@@ -2,15 +2,9 @@ import React, {useState} from 'react';
 import Link from "next/link";
 import {BASE_IMG_URL} from "@/utils/Const";
 import CardSkeleton from "@/components/CardSkeleton";
+import {propsTypeCard} from "@/types";
 
-interface propsType {
-    title: string;
-    img: string;
-    id: string;
-    releasedDate: string;
-}
-
-const Card = ({img, id, title, releasedDate}: propsType) => {
+const Card = ({img, id, title, releasedDate}: propsTypeCard) => {
     const [loaded, setLoaded] = useState(false)
     const [error, setError] = useState(false)
 

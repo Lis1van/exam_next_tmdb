@@ -1,12 +1,6 @@
 import React from 'react';
 import Link from "next/link";
-
-interface IGenres {
-    index: number,
-    name: string,
-    length: number,
-    id: number,
-}
+import {IGenres} from "@/types";
 
 const MovieInfo = ({index, name, length, id}: IGenres) => {
     return (

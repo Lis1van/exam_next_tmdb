@@ -5,6 +5,7 @@ import {useParams, useSearchParams} from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
 import {BASE_URL} from "@/utils/Const";
+import {IGenre} from "@/types";
 
 const Sidebar = () => {
     const [genres, setGenres] = useState([])
@@ -12,11 +13,6 @@ const Sidebar = () => {
 
     const searchParams = useSearchParams()
     const params = useParams()
-
-    interface IGenre{
-        id: number,
-        name: string,
-    }
 
     useEffect(() => {
         // genreList()
@@ -37,9 +33,6 @@ const Sidebar = () => {
     }, [params.id]);
 
     return (
-        //                                                   меньше pb-20 не ставить не видно весь список внизу
-        //     было это bg-primary px-10 max-h-[calc(100vh - 77px)] pb-6 overflow-y-scroll scrollbar-thin
-        //              scrollbar-thumb-[#22222a] scrollbar-track-primary hidden sm:block
         <div className='bg-primary px-10 h-full max-h-[calc(100vh - 77px)] pb-20 overflow-y-auto scrollbar-thin
                         scrollbar-thumb-[#22222a] scrollbar-track-primary hidden sm:block'>
             <div className="flex flex-col gap-4 pt-4">

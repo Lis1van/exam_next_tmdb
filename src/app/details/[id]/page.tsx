@@ -10,77 +10,9 @@ import { BsPlayFill } from "react-icons/bs";
 import Footer from "@/components/Footer";
 import RatingStars from "@/components/StarsRating";
 import GenreBadges from "@/components/GenreBadge";
+import {Root} from "@/types";
 
 const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false });
-
-export interface Root {
-    adult: boolean,
-    backdrop_path: string,
-    belongs_to_collection: BelongsToCollection,
-    budget: number,
-    genres: Genre[],
-    homepage: string,
-    id: number,
-    imdb_id: number,
-    original_language: string,
-    original_title: string,
-    overview: string,
-    popularity: string,
-    poster_path: string,
-    production_companies: ProductionCompany[],
-    production_countries: ProductionCountry[],
-    release_date: string,
-    revenue: number,
-    runtime: number,
-    spoken_language: SpokenLanguage[],
-    status: string,
-    tagline: string,
-    title: string,
-    video: boolean,
-    vote_average: number,
-    vote_count: number,
-    videos: Videos,
-}
-export interface BelongsToCollection {
-    id: number,
-    name: string,
-    poster_path: string,
-    backdrop_path: string,
-}
-export interface Genre {
-    id: number,
-    name: string,
-}
-export interface ProductionCompany {
-    id: number,
-    logo_path: string,
-    name: string,
-    origin_country: string,
-}
-export interface ProductionCountry{
-    iso_3166_1: string,
-    name: string,
-}
-export interface SpokenLanguage {
-    english_name: string,
-    iso_639_1: string,
-    name: string,
-}
-export interface Videos {
-    results: Result[]
-}
-export interface Result {
-    iso_3166_1: string,
-    iso_639_1: string,
-    name: string,
-    key: string,
-    site: string,
-    size: number,
-    type: string,
-    official: boolean,
-    published_at: string,
-    id: string,
-}
 
 const MovieDetails = () => {
     const [movie, setMovie] = useState<Root>();
@@ -128,7 +60,6 @@ const MovieDetails = () => {
             <div className='flex justify-center items-center pt-4 md:pt-0'>
                 <div className='grid md:grid-cols-[300px,1fr] max-w-[1200px] gap-12'>
                     <div>
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={`${BASE_IMG_URL}${movie?.poster_path}`} alt={movie?.title} />
                     </div>
                     <div className='space-y-6 md:space-y-3 text-textColor'>

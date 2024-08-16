@@ -4,25 +4,18 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import MobNav from "@/components/MobNav";
-import { FaSun, FaMoon, FaUser } from 'react-icons/fa';
-import { useTheme } from 'next-themes';
+import {FaUser } from 'react-icons/fa';
+import DarkModeSwitch from "@/components/DarkModeSwitch";
 
 const Navbar = () => {
     const [input, setInput] = useState('');
     const router = useRouter();
-    const { theme, setTheme } = useTheme();
-    const [mounted, setMounted] = useState(false);
-
-    // Убедимся, что компонент монтирован на клиенте
-    useEffect(() => setMounted(true), []);
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         setInput('');
         router.push(`/search/${input}?page=1`);
     };
-
-    if (!mounted) return null;
 
     return (
         <div className='bg-primary'>
@@ -31,7 +24,6 @@ const Navbar = () => {
                     <h2 className='text-[30px]'>Movie TMDB</h2>
                 </Link>
 
-                {/* Обновляем элементы управления в десктопной версии */}
                 <div className="flex items-center space-x-4 md:ml-auto">
                     <form className='space-x-4 hidden md:flex' onSubmit={handleSubmit}>
                         <input
@@ -45,19 +37,10 @@ const Navbar = () => {
                             Search
                         </button>
                     </form>
-
-                    <button
-                        onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                        className="text-xl focus:outline-none"
-                        aria-label="Toggle Theme"
-                        type="button"
-                    >
-                        {theme === 'dark' ? <FaSun className="text-yellow-400" /> : <FaMoon />}
-                    </button>
+                    <DarkModeSwitch />
                     <FaUser className="text-xl cursor-pointer" />
                 </div>
 
-                {/* Мобильная навигация */}
                 <MobNav input={input} setInput={setInput} handleSubmit={handleSubmit} />
             </div>
         </div>

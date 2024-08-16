@@ -7,13 +7,7 @@ import {BASE_URL} from "@/utils/Const";
 import Loading from "@/components/Loading";
 import Card from "@/components/Card";
 import Footer from "@/components/Footer";
-
-export interface IMovie{
-    id: string;
-    title: string;
-    poster_path: string;
-    release_date: string;
-}
+import {IMovie} from "@/types";
 
 const Discover = () => {
     const [title, setTitle] = useState('')
@@ -87,11 +81,13 @@ const Discover = () => {
             {movies.length === 0 && <Loading/>}
             <div className='grid gap-8 moviesGrid place-items-center mt-8'>
                 {movies.map((movie: IMovie) => (
-                    <Card key={movie.id}
-                          img={movie.poster_path}
-                          title={movie.title}
-                          id={movie.id}
-                          releasedDate={movie.release_date} />)
+                    <Card
+                        key={movie.id}
+                        img={movie.poster_path}
+                        title={movie.title}
+                        id={movie.id}
+                        releasedDate={movie.release_date}
+                    />)
                 )}
             </div>
             <div className='flex justify-center gap-16 py-6 pt-16'>
