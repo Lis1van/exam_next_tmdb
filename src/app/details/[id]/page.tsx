@@ -49,11 +49,12 @@ const MovieDetails = () => {
     };
 
     return (
-        <main className='bg-secondary p-8 relative max-h-[calc(100vh - 77px)] min-h-[calc(100vh - 77px)]
-        overflow-y-scroll scrollbar-thin scrollbar-thumb-[#22222a] scrollbar-track-primary' ref={mainRef}
+        <main className='bg-secondaryLight dark:bg-secondary p-8 relative max-h-[calc(100vh - 77px)] min-h-[calc(100vh - 77px)]
+        overflow-y-scroll scrollbar-thin scrollbar-thumb-blue-700 dark:scrollbar-thumb-[#22222a] scrollbar-track-primaryLight
+         dark:scrollbar-track-primary' ref={mainRef}
         >
             {movie === null && <Loading />}
-            <div className='text-textColor hover:text-white absolute right-0 top-0 m-2 cursor-pointer'
+            <div className='text-red-400 dark:text-textColor hover:text-red-600 dark:hover:text-white absolute right-0 top-0 m-2 cursor-pointer'
                  onClick={router.back}>
                 <IoMdClose size={28} />
             </div>
@@ -62,8 +63,8 @@ const MovieDetails = () => {
                     <div>
                         <img src={`${BASE_IMG_URL}${movie?.poster_path}`} alt={movie?.title} />
                     </div>
-                    <div className='space-y-6 md:space-y-3 text-textColor'>
-                        <div className='uppercase text-[26px] md:text-[34px] font-medium pr-4 text-white'>
+                    <div className='space-y-6 md:space-y-3 text-textColorLight dark:text-textColor'>
+                        <div className='uppercase text-[26px] md:text-[34px] font-medium pr-4 text-purple-950 dark:text-white'>
                             {movie?.title}
                         </div>
                         {/* Интеграция значков жанров */}
@@ -82,7 +83,8 @@ const MovieDetails = () => {
                             <div>{movie?.overview}</div>
                         </div>
                         <div className='inline-block pt-6 cursor-pointer' onClick={startPlayer}>
-                            <div className='flex gap-2 items-center bg-white text-black px-4 py-2 mb-6 hover:bg-[#b4b4b4]'>
+                            <div className='rounded-md flex gap-2 items-center bg-red-500 dark:bg-white text-black
+                            dark:text-black px-4 py-2 mb-6 hover:bg-red-600 dark:hover:bg-[#b4b4b4]'>
                                 <BsPlayFill size={24} />
                                 Watch trailer
                             </div>

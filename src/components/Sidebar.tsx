@@ -33,8 +33,9 @@ const Sidebar = () => {
     }, [params.id]);
 
     return (
-        <div className='bg-primary px-10 h-full max-h-[calc(100vh - 77px)] pb-20 overflow-y-auto scrollbar-thin
-                        scrollbar-thumb-[#22222a] scrollbar-track-primary hidden sm:block'>
+        <div className='bg-primaryLight dark:bg-primary px-10 h-full max-h-[calc(100vh - 77px)] pb-20 overflow-y-auto
+                        scrollbar-thin scrollbar-thumb-blue-700 dark:scrollbar-thumb-[#22222a] scrollbar-track-primaryLight
+                        dark:scrollbar-track-primary hidden sm:block'>
             <div className="flex flex-col gap-4 pt-4">
                 <p className='sidebarTitle'>Discover</p>
                 <Link href={'/discover/now_playing'}>

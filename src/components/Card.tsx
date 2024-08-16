@@ -9,7 +9,7 @@ const Card = ({img, id, title, releasedDate}: propsTypeCard) => {
     const [error, setError] = useState(false)
 
     return (
-        <div className='group bg-primary h-[450px] md:h-[335px] w-[100%]'>
+        <div className='group bg-primaryLight dark:bg-primary h-[450px] md:h-[335px] w-[100%]'>
             {!loaded && !error && <CardSkeleton />}
             {error && <CardSkeleton error />}
 
@@ -22,7 +22,7 @@ const Card = ({img, id, title, releasedDate}: propsTypeCard) => {
                         onLoad={() => setLoaded(true)}
                         onError={() => setError(true)}
                     />
-                    <div className='absolute bg-primary w-[100%] bottom-0 px-4 py-2 text-center transition-all
+                    <div className='absolute bg-blue-700 dark:bg-primary w-[100%] bottom-0 px-4 py-2 text-center transition-all
                     duration-500 opacity-0 group-hover:opacity-100'>
                         {title}
                         <p>{releasedDate}</p>

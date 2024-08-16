@@ -14,7 +14,7 @@ const DarkModeSwitch = () => {
             <div className="text-xl focus:outline-none" aria-label="Toggle Theme">
                 {mounted && (currentTheme === 'dark' ? (
                     <FaSun onClick={() => setTheme('light')} className="text-yellow-400 cursor-pointer hover:text-amber-700"/>) :
-                    (<FaMoon onClick={() => setTheme('dark')} className='cursor-pointer hover:text-amber-700' />))}
+                    (<FaMoon onClick={() => setTheme('dark')} className='text-gray-700 cursor-pointer hover:text-amber-700' />))}
             </div>
     );
 };

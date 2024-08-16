@@ -11,17 +11,6 @@ import axios from "axios";
 import DarkModeSwitch from "@/components/DarkModeSwitch";
 import {IGenre, propsType} from "@/types";
 
-// interface propsType {
-//     input: string,
-//     setInput: Dispatch<SetStateAction<string>>,
-//     handleSubmit: (event: React.FormEvent) => void,
-// }
-//
-// interface IGenre {
-//     id: number,
-//     name: string,
-// }
-
 const MobNav = ({ input, setInput, handleSubmit }: propsType) => {
     const [isOpen, setIsOpen] = useState(false);
     const [genres, setGenres] = useState<IGenre[]>([]);
@@ -54,20 +43,25 @@ const MobNav = ({ input, setInput, handleSubmit }: propsType) => {
                 </div>
                 <div className='space-x-4'>
                     <input
-                        className='bg-secondary px-4 py-2 outline-none placeholder:text-color text-[14px] w-[180px]'
+                        className='rounded-md bg-secondaryLight dark:bg-secondary px-4 py-2 outline-none
+                                   placeholder:text-textColorLight dark:placeholder:text-textColor text-[14px] w-[180px]'
                         type='text' value={input}
                         onChange={(e) => setInput(e.target.value)}
                         placeholder='Search movie...'
                     />
                 </div>
-                <button className='bg-secondary text-textColor py-2 px-4 hover:bg-textColor hover:text-white text-[14px]'>
+                <button className='rounded-md bg-secondaryLight dark:bg-secondary text-textColorLight
+                                   dark:text-textColor py-2 px-4 hover:bg-blue-700 dark:hover:bg-textColor
+                                   hover:text-black dark:hover:text-white text-[14px]'
+                >
                     Search
                 </button>
             </form>
 
             {/* Full screen navigation menu */}
-            <div className={`min-h-[100vh] max-h-[100vh] w-[100%] bg-primary fixed left-0 top-0 z-10 overflow-scroll ${isOpen ? 'block' : 'hidden'}`}>
-                <div className='sticky top-0 bg-primary py-4 w-[100%]'>
+            <div className={`min-h-[100vh] max-h-[100vh] w-[100%] bg-secondaryLight dark:bg-secondary fixed left-0 top-0 
+                             z-10 overflow-scroll ${isOpen ? 'block' : 'hidden'}`}>
+                <div className='sticky top-0 bg-primaryLight dark:bg-primary py-4 w-[100%]'>
                     <IoMdClose className='absolute top-0 right-0 m-2 mt-7' onClick={() => setIsOpen(false)} size={28} />
                     <div className='flex justify-between items-center px-4'>
                         <Link className='w-fit' href={'/discover/now_playing'} onClick={() => setIsOpen(false)}>

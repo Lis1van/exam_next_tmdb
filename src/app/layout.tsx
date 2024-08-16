@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-        <body className="h-screen overflow-hidden">
+        <body className="h-screen overflow-hidden ">
         <ThemeProvider defaultTheme='system' attribute='class'>
             <Navbar/>
             <div className="grid grid-cols-1 sm:grid-cols-[250px,1fr] h-full">

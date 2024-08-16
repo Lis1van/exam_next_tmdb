@@ -8,7 +8,7 @@
 		-webkit-tap-highlight-color: transparent;
 	}
 	body{
-		@apply text-white bg-primary
+		@apply text-orange-700 dark:text-white bg-primaryLight dark:bg-primary
 	}
 }
 
@@ -17,10 +17,10 @@
 		@apply font-semibold text-[18px];
 	}
 	.sidebarLink{
-		@apply text-textColor ml-4 cursor-pointer hover:text-white transition w-fit;
+		@apply text-textColorLight dark:text-textColor ml-4 cursor-pointer hover:text-orange-600 dark:hover:text-white transition w-fit;
 	}
 	.sidebarActive{
-		@apply text-white
+		@apply text-textColorLight dark:text-white
 	}
 	.moviesGrid{
 		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -48,7 +48,7 @@
 /*стили виджета кольца загрузки*/
 .lds-ring {
 	/* change color here */
-	color: #1c4c5b
+	color: #ed5805
 }
 .lds-ring,
 .lds-ring div {
