@@ -1,4 +1,3 @@
-// components/MoviesGrid.tsx
 import React from 'react';
 import Card from '@/components/Card';
 import { IMovie } from '@/types';

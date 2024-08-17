@@ -23,6 +23,7 @@ const Navbar = () => {
                 <Link className='hidden md:block' href={'/discover/now_playing'}>
                     <h2 className='text-[30px]'>Movie TMDB</h2>
                 </Link>
+                <MobNav input={input} setInput={setInput} handleSubmit={handleSubmit} />
 
                 <div className="flex items-center space-x-4 md:ml-auto">
                     <form className='space-x-4 hidden md:flex' onSubmit={handleSubmit}>
@@ -35,7 +36,7 @@ const Navbar = () => {
                             placeholder='Search movie...'
                         />
                         <button className='rounded-md bg-secondaryLight dark:bg-secondary text-textColorLight
-                                           dark:text-textColor py-2 px-4 hover:bg-blue-700 dark:hover:bg-textColor
+                                           dark:text-textColor py-2 px-4 hover:bg-gray-400 dark:hover:bg-textColor
                                            hover:text-black dark:hover:text-white'>
                             Search
                         </button>
@@ -44,7 +45,6 @@ const Navbar = () => {
                     <FaUser className="text-xl cursor-pointer" />
                 </div>
 
-                <MobNav input={input} setInput={setInput} handleSubmit={handleSubmit} />
             </div>
         </div>
     );

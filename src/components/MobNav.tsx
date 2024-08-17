@@ -63,7 +63,7 @@ const MobNav = ({ input, setInput, handleSubmit }: propsType) => {
                              z-10 overflow-scroll ${isOpen ? 'block' : 'hidden'}`}>
                 <div className='sticky top-0 bg-primaryLight dark:bg-primary py-4 w-[100%]'>
                     <IoMdClose className='absolute top-0 right-0 m-2 mt-7' onClick={() => setIsOpen(false)} size={28} />
-                    <div className='flex justify-between items-center px-4'>
+                    <div className='flex justify-evenly items-center px-4'>
                         <Link className='w-fit' href={'/discover/now_playing'} onClick={() => setIsOpen(false)}>
                             <div className='sidebarTitle text-[28px] text-center'>
                                 Movie TMDB

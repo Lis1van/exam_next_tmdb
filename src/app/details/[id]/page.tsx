@@ -50,7 +50,7 @@ const MovieDetails = () => {
 
     return (
         <main className='bg-secondaryLight dark:bg-secondary p-8 relative max-h-[calc(100vh - 77px)] min-h-[calc(100vh - 77px)]
-        overflow-y-scroll scrollbar-thin scrollbar-thumb-blue-700 dark:scrollbar-thumb-[#22222a] scrollbar-track-primaryLight
+        overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-500 dark:scrollbar-thumb-[#22222a] scrollbar-track-primaryLight
          dark:scrollbar-track-primary' ref={mainRef}
         >
             {movie === null && <Loading />}

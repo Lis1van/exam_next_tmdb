@@ -22,7 +22,7 @@ const Card = ({img, id, title, releasedDate}: propsTypeCard) => {
                         onLoad={() => setLoaded(true)}
                         onError={() => setError(true)}
                     />
-                    <div className='absolute bg-blue-700 dark:bg-primary w-[100%] bottom-0 px-4 py-2 text-center transition-all
+                    <div className='absolute bg-gray-500 dark:bg-primary w-[100%] bottom-0 px-4 py-2 text-center transition-all
                     duration-500 opacity-0 group-hover:opacity-100'>
                         {title}
                         <p>{releasedDate}</p>
