@@ -8,7 +8,7 @@ import Loading from "@/components/Loading";
 import { IoMdClose } from "react-icons/io";
 import { BsPlayFill } from "react-icons/bs";
 import Footer from "@/components/Footer";
-import RatingStars from "@/components/StarsRating";
+import RatingStars from "@/components/StarRating";
 import GenreBadges from "@/components/GenreBadge";
 import {Root} from "@/types";
 

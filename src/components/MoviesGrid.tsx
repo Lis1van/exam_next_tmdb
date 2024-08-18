@@ -16,6 +16,7 @@ const MoviesGrid: React.FC<MoviesGridProps> = ({ movies }) => {
                     title={movie.title}
                     id={movie.id}
                     releasedDate={movie.release_date}
+                    rating={movie.vote_average}
                 />
             ))}
         </div>

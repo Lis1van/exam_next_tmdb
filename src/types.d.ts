@@ -83,6 +83,7 @@ export interface IMovie{
     title: string;
     poster_path: string;
     release_date: string;
+    vote_average: number;
 }
 export interface IMovie{
     id: string;
@@ -95,6 +96,7 @@ export interface propsTypeCard {
     img: string;
     id: string;
     releasedDate: string;
+    rating: number;
 }
 export interface GenreBadgesProps {
     genres: { id: number; name: string }[];

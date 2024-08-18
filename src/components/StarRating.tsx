@@ -2,7 +2,7 @@ import React from 'react';
 import StarRatings from 'react-star-ratings';
 import {RatingStarsProps} from "@/types";
 
-const StarsRating: React.FC<RatingStarsProps> = ({
+const StarRating: React.FC<RatingStarsProps> = ({
                                                      rating,
                                                      starDimension = "20px",
                                                      starSpacing = "2px"
@@ -19,4 +19,4 @@ const StarsRating: React.FC<RatingStarsProps> = ({
     );
 };
 
-export default StarsRating;
+export default StarRating;

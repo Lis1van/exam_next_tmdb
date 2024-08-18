@@ -3,8 +3,9 @@ import Link from "next/link";
 import {BASE_IMG_URL} from "@/utils/Const";
 import CardSkeleton from "@/components/CardSkeleton";
 import {propsTypeCard} from "@/types";
+import StarRating from "@/components/StarRating";
 
-const Card = ({img, id, title, releasedDate}: propsTypeCard) => {
+const Card = ({img, id, title, releasedDate, rating}: propsTypeCard) => {
     const [loaded, setLoaded] = useState(false)
     const [error, setError] = useState(false)
 
@@ -26,6 +27,9 @@ const Card = ({img, id, title, releasedDate}: propsTypeCard) => {
                     duration-500 opacity-0 group-hover:opacity-100'>
                         {title}
                         <p>{releasedDate}</p>
+                        <div className='flex justify-center mt-2'>
+                            <StarRating rating={rating}/>
+                        </div>
                     </div>
                 </div>
             </Link>
