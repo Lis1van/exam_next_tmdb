@@ -32,13 +32,13 @@
 1. **Клонируйте репозиторий**:
 
    ```bash
-   git clone https://github.com/Lis1van/exam_nexr_tmdb.git
+   git clone https://github.com/Lis1van/exam_next_tmdb.git
    ```
 
 2. **Перейдите в директорию проекта**:
 
    ```bash
-   cd exam_nexr_tmdb
+   cd exam_next_tmdb
    ```
 
 3. **Установите зависимости**:
@@ -129,13 +129,13 @@ This is a Next.js project that displays a list of movies using data from The Mov
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/Lis1van/exam_nexr_tmdb.git
+   git clone https://github.com/Lis1van/exam_next_tmdb.git
    ```
 
 2. **Navigate to the project directory**:
 
    ```bash
-   cd exam_nexr_tmdb
+   cd exam_next_tmdb
    ```
 
 3. **Install dependencies**:
