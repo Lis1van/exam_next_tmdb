@@ -15,7 +15,6 @@ const Sidebar = () => {
     const params = useParams()
 
     useEffect(() => {
-        // genreList()
         axios.get(`${BASE_URL}/genre/movie/list?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US`)
             .then(({data}) => {
                 console.log('sidebar:', data.genres);
